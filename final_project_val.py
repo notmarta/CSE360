@@ -198,7 +198,8 @@ def get_pairs_for_traj(startn,endn,ret_locs):
     starty = starty if starty<19 else 19   
     endx = endx if endx<19 else 19
     endy = endy if endy<19 else 19
-
+    #endx = 5
+    #endy = 11
     start = grid.node(startx,starty)
     #Get robot end position
     #end = grid.node(17, 18)
@@ -215,8 +216,8 @@ def get_pairs_for_traj(startn,endn,ret_locs):
     for i in range(0,len(path)-1):
         fut_x = path[i+1][1]-9.5
         fut_z = path[i+1][0]-9.5
-        x_between = numpy.linspace(x,fut_x,10)
-        z_between = numpy.linspace(z,fut_z,10)
+        x_between = numpy.linspace(x,fut_x,100)
+        z_between = numpy.linspace(z,fut_z,100)
         for j in range(0,len(x_between)):
             c_path.append((x_between[j],z_between[j],y))
         c_path.append((fut_x,fut_z,y))
