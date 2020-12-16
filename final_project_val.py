@@ -208,28 +208,36 @@ def get_pairs_for_traj(startn,endn,ret_locs):
     path, runs = finder.find_path(start, end, grid)
     
     c_path = []
-    for coord in path:
-        x = coord[1]-9.5
-        z = coord[0]-9.5
-        y = .5 #basic height
-        c_path.append((x,z,y))
+    x = path[0][1]-9.5
+    z = path[0][0]-9.5
+    y = .5 #basic height
+    c_path.append((x,z,y))
+    for i in range(0,len(path)-1):
+        fut_x = path[i+1][1]-9.5
+        fut_z = path[i+1][0]-9.5
+        x_between = numpy.linspace(x,fut_x,10)
+        z_between = numpy.linspace(z,fut_z,10)
+        for j in range(0,len(x_between)):
+            c_path.append((x_between[j],z_between[j],y))
+        c_path.append((fut_x,fut_z,y))
     print(f"Path: {path}")
 
+
     ##Making it pretty
-    grid_n = numpy.zeros((n,m))
-    for x in range(0,20):
-        for y in range(0,20):
-            if grid_cells[x][y] == 0:
-                grid_n[x][y] = 1
-            else:
-                grid_n[x][y] = 0
-    pathp = []
-    for nodelet in path:
-        pathp.append([nodelet[1], nodelet[0]])
-    draw_grid(grid_n)
-    printp = numpy.array(path)
-    plt.plot(printp[:,0], printp[:,1],'bo')
-    plt.show()
+    # grid_n = numpy.zeros((n,m))
+    # for x in range(0,20):
+    #     for y in range(0,20):
+    #         if grid_cells[x][y] == 0:
+    #             grid_n[x][y] = 1
+    #         else:
+    #             grid_n[x][y] = 0
+    # pathp = []
+    # for nodelet in path:
+    #     pathp.append([nodelet[1], nodelet[0]])
+    # draw_grid(grid_n)
+    # printp = numpy.array(path)
+    # plt.plot(printp[:,0], printp[:,1],'bo')
+    # plt.show()
 
 
     # Velocities
